@@ -1,0 +1,961 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
+
+  <!-- HTML Meta Tags -->
+  <title>IMGHage</title>
+  <meta name="description" content="IMG ENGINEERED BY SHAYNE HAGE" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:url" content="https://haderachhage.github.io/img" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SHAYNE HAGE + IMAGE" />
+  <meta property="og:description" content="IMG ENGINEERED BY SHAYNE" />
+  <meta property="og:image" content="https://i.postimg.cc/gkKWpqcw/Untitled-design-(9).png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:domain" content="haderachhage.github.io" />
+  <meta property="twitter:url" content="https://haderachhage.github.io/img" />
+  <meta name="twitter:title" content="SHAYNE HAGE + IMAGE" />
+  <meta name="twitter:description" content="IMG ENGINEERED BY SHAYNE" />
+  <meta name="twitter:image" content="https://i.postimg.cc/gkKWpqcw/Untitled-design-(9).png" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" href="/favicon.ico">
+</head>
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  /* =====================================================
+     ✅ HIDE BROWSER SCROLLBAR (KEEP SCROLL)
+     ✅ SMOOTH MOMENTUM SCROLLING
+     ===================================================== */
+  html, body{
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar{
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  body{ -webkit-overflow-scrolling: touch; }
+
+  .lightbox{
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .lightbox::-webkit-scrollbar{ display:none; width:0; height:0; }
+
+  /* THEME TOKENS */
+  :root{
+    --bg:#fff;
+    --ink:#000;
+    --link:#111;
+    --hover-ink:#fff;
+    --hover-underline:#000;
+
+    --line:#d7d7d7;
+    --soft:#f5f5f5;
+
+    color-scheme: light;
+
+    --showcase-max: 760px;
+    --showcase-pad-x: 16px;
+    --showcase-top-pad: 120px;
+    --showcase-bottom-pad: 140px;
+
+    --card-gap: 3px;
+    --cascade-overlap: 6px;
+    --wobble: 14px;
+
+    --card-radius: 0px;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#000;
+      --ink:#fff;
+      --link:#fff;
+      --hover-ink:#000;
+      --hover-underline:#fff;
+
+      --line:#fff;
+      --soft:#000;
+
+      color-scheme: dark;
+    }
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "EB Garamond", serif;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100%;
+  }
+
+  /* FULL-PAGE background hover (cover) */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:url(https://i.ibb.co/wNXhrk5z/Untitled-design-9.png);
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    opacity:0;
+    pointer-events:none;
+    z-index:0;
+    transition:opacity 0s;
+  }
+  body:has(.img-link:hover)::before{ opacity:1; }
+  body:has(.dsn-link:hover)::before{ opacity:1; }
+  body:has(.aud-link:hover)::before{ opacity:1; }
+
+  /* LEFT COLUMN */
+  .left-col{
+    position:fixed;
+    left:104px;
+    top:55%;
+    transform:translateY(-50%);
+    transform: scaleY(3.25);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    z-index:6;
+    text-transform:uppercase;
+    user-select:none;
+  }
+  .left-col a{
+    font-size: clamp(78px, 5.2vw, 130px);
+    font-weight: 500;
+    transform: scaleY(2.25);
+    transform-origin: right center;
+    letter-spacing: -0.10em;
+    line-height: 0.70;
+    white-space: nowrap;
+    color: #0302E7;
+    text-decoration: none;
+  }
+  .left-col a:hover{ text-decoration: underline; }
+
+  /* CENTER COLUMN */
+  .center-col {
+    position: relative;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: -100000000px;
+    text-transform: uppercase;
+    user-select: none;
+    z-index:5;
+  }
+  .center-col a {
+    display:inline-block;
+    font-size: clamp(70px, .2vw, 130px);
+    font-weight: 500;
+    transform: scaleY(2.25);
+    transform-origin: center;
+    letter-spacing: -0.10em;
+    line-height: 0.7;
+    white-space: nowrap;
+    color: var(--link);
+    padding: 0.15em 0.25em;
+    text-decoration: none;
+    margin-top:9px;
+  }
+  .center-col a:hover {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--hover-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--hover-underline);
+  }
+  .img-link:hover { background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png); }
+  .aud-link:hover { background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png); }
+
+  /* RIGHT RAIL */
+  .right-rail{
+    position:fixed;
+    right:24px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    user-select:none;
+    text-transform:uppercase;
+    z-index:6;
+    gap:18px;
+  }
+  .right-rail a,
+  .right-rail span{
+    font-size:clamp(54px, 5.2vw, 130px);
+    font-weight:500;
+    transform:scaleY(2.25);
+    transform-origin:right center;
+    letter-spacing:-0.10em;
+    line-height:0.70;
+    white-space:nowrap;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .right-rail .plus{
+    transform:scaleY(2.35);
+    letter-spacing:-0.16em;
+    opacity:.95;
+    pointer-events:none;
+  }
+  .right-rail a:hover{ text-decoration: underline; }
+
+  /* RIGHT EMBED PANEL */
+  .embed-panel{
+    position:fixed;
+    top:50%;
+    right:24px;
+    transform:translateY(-50%);
+    width:min(520px, 38vw);
+    z-index:7;
+    display:none;
+  }
+  .embed-panel.is-open{ display:block; }
+
+  /* SHOWCASE */
+  .showcase{
+    position: relative;
+    z-index:1;
+    width: min(var(--showcase-max), 100%);
+    margin: 0 auto;
+    padding: var(--showcase-top-pad) var(--showcase-pad-x) var(--showcase-bottom-pad);
+  }
+  .stack{
+    display:flex;
+    flex-direction:column;
+    gap: var(--card-gap);
+    align-items:center;
+  }
+
+  /* =====================================================
+     ✅ RE-TRIGGERABLE SLIDING FADE REVEAL (EVERY TIME IN VIEW)
+     ✅ HIDE FRAME UNTIL IMAGE IS LOADED
+     (NO HUGE GAPS)
+     ===================================================== */
+  .card{
+    width:160%;
+    border-radius: var(--card-radius);
+    overflow:hidden;
+
+    /* hidden frame until loaded */
+    border:1px solid transparent;
+    background:transparent;
+
+    display:block;
+
+    /* animation starts from "hidden" state */
+    --fromX: 0px;
+    opacity: 0;
+    transform: translateY(16px) translateX(var(--fromX));
+    will-change: transform, opacity;
+  }
+
+  .card:not(:first-child){ margin-top: calc(-1 * var(--cascade-overlap)); }
+  .card:nth-child(odd){  --fromX: calc(-1 * var(--wobble)); }
+  .card:nth-child(even){ --fromX: var(--wobble); }
+
+  /* once image is loaded, frame appears */
+  .card.img-ready{
+    border-color: var(--line);
+    background: var(--soft);
+  }
+
+  /* every time we add .is-visible, play the reveal */
+  .card.is-visible{
+    animation: cardReveal .42s ease both;
+  }
+
+  @keyframes cardReveal{
+    from{
+      opacity: 0;
+      transform: translateY(16px) translateX(var(--fromX));
+    }
+    to{
+      opacity: 1;
+      transform: translateY(0) translateX(0);
+    }
+  }
+
+  /* “disabled link” wrapper that only opens lightbox */
+  .card a.img-open{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    outline:none;
+  }
+
+  .card img{
+    width:100%;
+    height:auto;
+    display:block;
+    background:transparent; /* no frame/box before load */
+    -webkit-user-drag: none;
+    user-select: none;
+    cursor: zoom-in;
+    transition: opacity 180ms ease;
+  }
+  .card a.img-open:hover img{ opacity: 0.78; }
+
+  /* fast image fade when it loads */
+  .card img[data-reveal]{
+    opacity: 0;
+    transition: opacity 200ms ease;
+    will-change: opacity;
+  }
+  .card img[data-reveal].is-loaded{
+    opacity: 1;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px){
+    .left-col{
+      left:50%;
+      top:18px;
+      transform:translateX(-50%);
+      flex-direction:row;
+      align-items:baseline;
+      gap:14px;
+      font-size: 500px;
+    }
+    .center-col{
+      padding: 64px 16px 16px;
+      gap: 44px;
+    }
+    .center-col a{
+      max-width: 92vw;
+      text-align:center;
+      white-space: normal;
+    }
+    .right-rail{
+      right:14px;
+      top:auto;
+      bottom:18px;
+      transform:none;
+      flex-direction:row;
+      align-items:baseline;
+      gap:14px;
+    }
+    .right-rail a,
+    .right-rail span{
+      font-size:clamp(22px, 5.5vw, 30px);
+      transform:scaleY(2.1);
+      transform-origin:center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+    }
+    .right-rail .plus{
+      transform:scaleY(2.25);
+      letter-spacing:-0.16em;
+    }
+
+    .embed-panel{
+      top:auto;
+      left:14px;
+      right:14px;
+      bottom:14px;
+      width:auto;
+      transform:none;
+    }
+    .embed-panel iframe{
+      width:100%;
+      height:320px;
+      display:block;
+    }
+
+    :root{ --cascade-overlap: 34px; --wobble: 10px; }
+    .showcase{ padding-top: 110px; }
+    .card{ width:100%; }
+  }
+
+  @media (max-width: 480px){
+    .center-col .img-link{ position: relative; top: -80px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{
+      opacity: 1;
+      transform: none;
+      animation: none !important;
+    }
+    .card img[data-reveal]{
+      transition:none;
+      opacity:1;
+    }
+  }
+
+  /* ============================
+     LIGHTBOX
+     ============================ */
+  .lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.92);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    cursor:zoom-out;
+  }
+  .lightbox.is-open{ display:flex; }
+
+  .lightbox img{
+    max-width:92vw;
+    max-height:92vh;
+    object-fit:contain;
+    background:transparent;
+    -webkit-user-drag: none;
+    user-select: none;
+    pointer-events: auto;
+  }
+
+  .lightbox-arrow{
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%) scaleY(2.35);
+    font-size:clamp(54px, 5.2vw, 130px);
+    font-weight:500;
+    transform-origin:center;
+    letter-spacing:-0.16em;
+    line-height:0.70;
+    white-space:nowrap;
+    text-decoration:none;
+    color:var(--ink);
+    cursor: pointer;
+    user-select: none;
+    z-index: 10000;
+    padding: 12px;
+  }
+  .lightbox-arrow.left{ left: 24px; }
+  .lightbox-arrow.right{ right: 24px; }
+  .lightbox-arrow:hover{ opacity: 0.7; }
+
+  @media (prefers-color-scheme: light){
+    .lightbox-arrow{ color:#fff; }
+  }
+
+  @media (min-width: 769px){
+    body.lb-open .right-rail{
+      top: 18px;
+      bottom: auto;
+      transform: none;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 14px;
+      z-index: 10001;
+      pointer-events: auto;
+    }
+    body.lb-open .right-rail span{ display:none; }
+    body.lb-open .right-rail a{
+      font-size: clamp(22px, 5.5vw, 30px);
+      transform: scaleY(2.1);
+      transform-origin: right center;
+      letter-spacing: -0.10em;
+      line-height: 0.70;
+      color: #fff;
+    }
+
+    .lightbox.is-story{
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 4vh 0;
+      cursor: default;
+    }
+    .lightbox.is-story img{
+      width: min(80vw, 1100px);
+      max-width: min(80vw, 1100px);
+      max-height: none;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .lightbox.is-zoom{
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      padding: 3vh 0;
+      cursor: default;
+    }
+    .lightbox.is-zoom img{
+      width: min(100vw, 1200px);
+      max-width: min(100vw, 1200px);
+      max-height: none;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  /* ============================
+     CUSTOM CURSORS (Tumi's Metallic Link 3D)
+     ============================ */
+  :root{
+    --cur-normal-img:   url("https://www.rw-designer.com/cursor-view/230912.png");
+    --cur-link-img:     url("https://www.rw-designer.com/cursor-view/230909.png");
+    --cur-text-img:     url("https://www.rw-designer.com/cursor-view/230914.png");
+    --cur-move-img:     url("https://www.rw-designer.com/cursor-view/230910.png");
+    --cur-no-img:       url("https://www.rw-designer.com/cursor-view/230915.png");
+    --cur-precision-img:url("https://www.rw-designer.com/cursor-view/230913.png");
+    --cur-help-img:     url("https://www.rw-designer.com/cursor-view/230907.png");
+    --cur-working-img:  url("https://www.rw-designer.com/cursor-view/230917.png");
+    --cur-busy-img:     url("https://www.rw-designer.com/cursor-view/230903.png");
+
+    --cur-resize-ns-img:url("https://www.rw-designer.com/cursor-view/230916.png");
+    --cur-resize-ew-img:url("https://www.rw-designer.com/cursor-view/230908.png");
+    --cur-resize-nwse-img:url("https://www.rw-designer.com/cursor-view/230905.png");
+    --cur-resize-nesw-img:url("https://www.rw-designer.com/cursor-view/230906.png");
+
+    --cur-alt-img:      url("https://www.rw-designer.com/cursor-view/230901.png");
+  }
+
+  html, body{ cursor: var(--cur-normal-img) 0 0, auto; }
+
+  a, button, [role="button"], summary,
+  .lightbox-arrow, .card img, .left-col a, .right-rail a, .center-col a{
+    cursor: var(--cur-link-img) 0 0, pointer;
+  }
+
+  input, textarea, select, [contenteditable="true"]{
+    cursor: var(--cur-text-img) 0 0, text;
+  }
+
+  :disabled, [aria-disabled="true"], .is-disabled{
+    cursor: var(--cur-no-img) 0 0, not-allowed !important;
+  }
+
+  .lightbox{ cursor: var(--cur-alt-img) 0 0, auto; }
+  .lightbox img{ cursor: var(--cur-alt-img) 0 0, auto; }
+</style>
+</head>
+
+<body>
+
+  <!-- LEFT COLUMN -->
+  <div class="left-col">
+    <a href="#"></a>
+    <a href="/" class="aud-link" id="img-link">+</a>
+    <a href="#"></a>
+  </div>
+
+  <!-- RIGHT RAIL LINKS -->
+  <nav class="right-rail" aria-label="Primary sections">
+    <a href="/" class="aud-link" id="dassLink"></a>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <a href="/dsn">DSN</a>
+    <span class="plus">+</span>
+    <a href="/aud">AUD</a>
+  </nav>
+
+  <!-- CENTER COLUMN -->
+  <div class="center-col">
+    <a style="font-size:20px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb?si=0CEN8APJQB-wJQyHEJtqkQ" class="img-link"></a>
+    <a href="https://www.instagram.com/______haderachhage/" class="dsn-link"></a>
+    <a href="/img" class="aud-link" id="dassLink">UPDA - TE</a>
+    <a href="/" class="aud-link" id="dassLink">  </a>
+  </div>
+
+  <!-- IMAGE SHOWCASE -->
+  <main class="showcase" aria-label="Image showcase">
+    <section class="stack">
+      <figure class="card"><img src="https://i.ibb.co/QjDmH49J/RENFREW.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/3YTgn8Nk/DSC-0001.jpg" alt=""></figure>
+      <figure class="card"><img src="https://ia903206.us.archive.org/5/items/yourimage_202602/GABETWOS%20%281%29%20–%20Kopi.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/qLBtDVTP/3image.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/r2Nzt57Z/gabethere-Kopi.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/PZQSQ1Yf/DSC-6423.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/G3tvVHqs/DSC-1442.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/wZdCs46P/DSC-1441.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/7xvmrFN9/DSC-9537.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/tPsK45R0/1-DSC-7442-Kopi-2.jpg" alt="fuzzy"></figure>
+      <figure class="card"><img src="https://i.ibb.co/zWBD9J8Q/uten-tittel.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/gZTfqJdV/DSC-1368.jpg" alt="LEAF"></figure>
+      <figure class="card"><img src="https://i.ibb.co/qFjTR4jx/2-DSC-7442-Kopi-1.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/C3GtX2bS/t-Jg7otq.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/q3KqxqqN/DRuvr-B4.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/1fxj0Hwf/DSC-7325.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/w2ZrHsH/Pedxyal.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/S4Dzfv36/DSC-9774.jpg" alt="SINGLE STICK"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RTJtcL6N/DSC-9775.jpg" alt="BEACH"></figure>
+      <figure class="card"><img src="https://i.ibb.co/XZnRpPYd/DSC-9773.jpg" alt="BRYCE"></figure>
+
+      <figure class="card"><img src="https://i.ibb.co/0RgT4DCv/DSC-9687.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/4RZMgkm1/DSC-9661.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/3ybDTqZM/DSC-9529.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/j9jydKxY/DSC-6925.png" alt="AAMIRAH RED"></figure>
+      <figure class="card"><img src="https://i.ibb.co/Qv5ss0wL/DSC-6897-1.jpg" alt="AAMIRAH LAYING DOWN1"></figure>
+      <figure class="card"><img src="https://i.ibb.co/4R9JYmSF/DSC-6895.jpg" alt="AAMIRAH LAYING DOWN2"></figure>
+      <figure class="card"><img src="https://i.ibb.co/m51HNFFY/DSC-6901.jpg" alt="AAMIRAH LAYING DOWN3"></figure>
+      <figure class="card"><img src="https://i.ibb.co/JjMqM0XC/DSC-6877.jpg" alt="AAMIRAH LAYING DOWN4"></figure>
+      <figure class="card"><img src="https://i.ibb.co/2Ym5JvHh/DSC-6735.jpg" alt="AAMIRAH LAYING DOWN5"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RpjHKcHM/DSC-6728.jpg" alt="AAMIRAH LAYING DOWN6"></figure>
+      <figure class="card"><img src="https://i.postimg.cc/44xLtkhx/1DSC-6931-Kopi.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/Xfq7rdW7/tumblr-227db31e44870ac1f13f3668dca9e5b5-7738ffbe-1280.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/DfS6gbwB/DSC-9946.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RTrHS8NY/DSC-0005.jpg" alt="IMG 05"></figure>
+      <figure class="card"><img src="https://i.ibb.co/8g0JKyWw/DSC-9995.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/PfHfCp0/DSC-5929-1.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RLtCtf5/DSC-6299.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/N6m51YK0/DSC-8551.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/S7PHBVCt/DSC-7213.jpg" alt="Gabe's Eyes"></figure>
+      <figure class="card"><img src="https://i.ibb.co/hJNF5H81/DSC-7322.jpg" alt="Gabe1"></figure>
+      <figure class="card"><img src="https://i.ibb.co/BK6H8vnk/DSC-7342.jpg" alt="Gabe1"></figure>
+      <figure class="card"><img src="https://i.ibb.co/cKYdbnXK/DSC-7355.jpg" alt="Gabe2"></figure>
+      <figure class="card"><img src="https://i.ibb.co/fVj3n2QX/DSC-7406.jpg" alt="Gabe3"></figure>
+      <figure class="card"><img src="https://i.ibb.co/qM3fKTh3/DSC-9716.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/wqYY17n/DSC-9919.jpg" alt=""></figure>
+    </section>
+  </main>
+
+  <!-- EMBED PANEL -->
+  <div class="embed-panel" id="embedPanel">
+    <iframe
+      style="border-radius: 24px"
+      src="https://untitled.stream/embed/JsMabpfmdQZF"
+      width="100%"
+      height="344"
+      allowfullscreen
+      allow="picture-in-picture"
+      frameborder="0"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-arrow left" id="lbPrev">+</div>
+    <img src="" alt="" draggable="false">
+    <div class="lightbox-arrow right" id="lbNext">+</div>
+  </div>
+
+<script>
+  // embed toggle
+  const dassLink = document.getElementById('dassLink');
+  const embedPanel = document.getElementById('embedPanel');
+  dassLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    embedPanel.classList.toggle('is-open');
+  });
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+  const cards = Array.from(document.querySelectorAll('.card'));
+  const images = Array.from(document.querySelectorAll('.card img'));
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+
+  let currentIndex = 0;
+
+  // Track which cards are currently in view (so load can trigger reveal immediately)
+  const inView = new WeakSet();
+
+  // Helper: retrigger reveal animation every time
+  function retriggerReveal(card){
+    // remove and re-add to replay keyframes
+    card.classList.remove('is-visible');
+    // force reflow so the browser resets the animation state
+    void card.offsetWidth;
+    card.classList.add('is-visible');
+  }
+
+  // =====================================================
+  // ✅ TOP IMAGES PRIORITY + WRAP IN DISABLED LINK
+  // ✅ FRAME HIDDEN UNTIL IMAGE LOADED
+  // =====================================================
+  (function setupImages(){
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const TOP_EAGER_COUNT = 6;
+
+    images.forEach((img, index) => {
+      img.setAttribute('data-reveal', '');
+      img.decoding = 'async';
+
+      if (index < TOP_EAGER_COUNT) {
+        img.loading = 'eager';
+        try { img.fetchPriority = 'high'; } catch(e) {}
+        img.setAttribute('fetchpriority', 'high');
+      } else {
+        img.loading = 'lazy';
+        try { img.fetchPriority = 'low'; } catch(e) {}
+        img.setAttribute('fetchpriority', 'low');
+      }
+
+      // Wrap with disabled link (ONLY opens lightbox)
+      const card = cards[index];
+      if (card && img.parentElement === card) {
+        const a = document.createElement('a');
+        a.href = '#';
+        a.className = 'img-open';
+        a.setAttribute('aria-label', 'Open image');
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openLightboxAt(index);
+        });
+        card.insertBefore(a, img);
+        a.appendChild(img);
+      }
+
+      // Block save/drag
+      img.setAttribute('draggable', 'false');
+      img.addEventListener('contextmenu', (e) => e.preventDefault());
+      img.addEventListener('dragstart', (e) => e.preventDefault());
+
+      // When image loads: fade image + show frame
+      const onReady = () => {
+        img.classList.add('is-loaded');
+        card.classList.add('img-ready');
+        card.dataset.loaded = "1";
+
+        // If the card is currently in view, reveal now (and retrigger each entry later)
+        if (reduceMotion) {
+          card.classList.add('is-visible');
+        } else if (inView.has(card)) {
+          retriggerReveal(card);
+        }
+      };
+
+      if (reduceMotion) onReady();
+      else if (img.complete && img.naturalWidth > 0) onReady();
+      else {
+        img.addEventListener('load', onReady, { once:true });
+        img.addEventListener('error', onReady, { once:true });
+      }
+    });
+  })();
+
+  // =====================================================
+  // ✅ RE-TRIGGER REVEAL EVERY TIME YOU SCROLL IN/OUT
+  // - on enter: if loaded, replay reveal
+  // - on exit: remove .is-visible so it can replay next time
+  // =====================================================
+  const io = new IntersectionObserver((entries) => {
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    for (const e of entries) {
+      const card = e.target;
+
+      if (e.isIntersecting) {
+        inView.add(card);
+
+        if (reduceMotion) {
+          card.classList.add('is-visible');
+          continue;
+        }
+
+        // Only animate if image is loaded (frame hidden until then)
+        if (card.dataset.loaded === "1") {
+          retriggerReveal(card);
+        }
+      } else {
+        inView.delete(card);
+
+        // Remove visibility so it can animate again next time
+        card.classList.remove('is-visible');
+      }
+    }
+  }, { threshold: 0.12 });
+
+  cards.forEach(c => io.observe(c));
+
+  // =====================================================
+  // LIGHTBOX
+  // =====================================================
+  function isDesktopNow(){
+    return window.matchMedia('(min-width: 769px)').matches;
+  }
+  function isStoryRatio(r){
+    const isNineSixteen = (r >= 1.70 && r <= 1.90);
+    const isTwoThirds   = (r >= 1.45 && r <= 1.60);
+    return isNineSixteen || isTwoThirds;
+  }
+  function isStoryFromImg(imgEl){
+    const w = imgEl && imgEl.naturalWidth;
+    const h = imgEl && imgEl.naturalHeight;
+    if(!w || !h) return false;
+    return isStoryRatio(h / w);
+  }
+  function isZoomFromImg(imgEl){
+    if(!imgEl) return false;
+    const w = imgEl.naturalWidth || imgEl.width;
+    const h = imgEl.naturalHeight || imgEl.height;
+
+    if (w && h){
+      if (w === 5917 && h === 6100) return true;
+      if (Math.abs(w - 5917) <= 4 && Math.abs(h - 6100) <= 4) return true;
+    }
+    const src = (imgEl.src || '').toLowerCase();
+    return src.includes('5917x6100');
+  }
+  function updateZoomModeForIndex(i){
+    const shouldZoom = isZoomFromImg(images[i]);
+    if (lightbox.classList.contains('is-story')) {
+      lightbox.classList.remove('is-zoom');
+      return;
+    }
+    lightbox.classList.toggle('is-zoom', shouldZoom);
+    if (shouldZoom) lightbox.scrollTop = 0;
+  }
+  function applyDesktopLightboxUI(open){
+    document.body.classList.toggle('lb-open', open && isDesktopNow());
+  }
+  function updateStoryModeForIndex(i){
+    if (!isDesktopNow()) {
+      lightbox.classList.remove('is-story');
+      return;
+    }
+    const shouldStory = isStoryFromImg(images[i]);
+    lightbox.classList.toggle('is-story', shouldStory);
+    if (shouldStory) lightbox.scrollTop = 0;
+  }
+
+  function openLightboxAt(i){
+    currentIndex = i;
+
+    updateStoryModeForIndex(currentIndex);
+    updateZoomModeForIndex(currentIndex);
+
+    lightboxImg.src = images[currentIndex].src;
+
+    lightboxImg.onload = () => {
+      if (!isDesktopNow()) {
+        lightbox.classList.remove('is-story');
+        return;
+      }
+      const r = lightboxImg.naturalHeight / lightboxImg.naturalWidth;
+      const shouldStory = isStoryRatio(r);
+      lightbox.classList.toggle('is-story', shouldStory);
+      if (shouldStory) {
+        lightbox.classList.remove('is-zoom');
+        lightbox.scrollTop = 0;
+      } else {
+        updateZoomModeForIndex(currentIndex);
+      }
+    };
+
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    applyDesktopLightboxUI(true);
+  }
+
+  function showImage(index){
+    if(index < 0) index = images.length - 1;
+    if(index >= images.length) index = 0;
+    openLightboxAt(index);
+  }
+
+  lbPrev.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex - 1);
+  });
+  lbNext.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex + 1);
+  });
+
+  lightboxImg.addEventListener('contextmenu', (e) => e.preventDefault());
+  lightboxImg.addEventListener('dragstart', (e) => e.preventDefault());
+
+  // Mobile swipe gestures
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touching = false;
+  let suppressClick = false;
+
+  lightbox.addEventListener('touchstart', (e) => {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (!e.touches || e.touches.length !== 1) return;
+    touching = true;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  lightbox.addEventListener('touchend', (e) => {
+    if (!touching) return;
+    touching = false;
+    if (!e.changedTouches || e.changedTouches.length !== 1) return;
+
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+    const dx = endX - touchStartX;
+    const dy = endY - touchStartY;
+
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      suppressClick = true;
+      if (dx < 0) showImage(currentIndex + 1);
+      else showImage(currentIndex - 1);
+      setTimeout(() => { suppressClick = false; }, 0);
+    }
+  }, { passive: true });
+
+  lightbox.addEventListener('click', () => {
+    if (suppressClick) return;
+    lightbox.classList.remove('is-open');
+    lightbox.classList.remove('is-story');
+    lightbox.classList.remove('is-zoom');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+    applyDesktopLightboxUI(false);
+  });
+  lightboxImg.addEventListener('click', (e) => e.stopPropagation());
+
+  document.addEventListener('keydown', (e) => {
+    if(!lightbox.classList.contains('is-open')) return;
+
+    if (e.key === 'Escape') {
+      lightbox.classList.remove('is-open');
+      lightbox.classList.remove('is-story');
+      lightbox.classList.remove('is-zoom');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+      applyDesktopLightboxUI(false);
+    }
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+  });
+
+  window.addEventListener('resize', () => {
+    if (!lightbox.classList.contains('is-open')) return;
+    applyDesktopLightboxUI(true);
+    updateStoryModeForIndex(currentIndex);
+  });
+
+  document.addEventListener('contextmenu', (e) => {
+    if (lightbox.classList.contains('is-open')) e.preventDefault();
+  });
+</script>
+
+</body>
+</html>
